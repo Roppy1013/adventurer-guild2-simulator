@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>冒険者ギルド物語2 キャラ育成シミュレーター</title>
+<style>
+:root{color-scheme:dark;--bg:#10151d;--panel:#1a2330;--line:#344256;--text:#f2f5fa;--muted:#aab7c8;--gold:#f3c969;--blue:#8ecbff;--green:#8ee0b2}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#172232,#10151d 240px);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
+main{max-width:900px;margin:auto;padding:18px 14px 48px}.hero{padding:10px 2px 18px}.eyebrow{color:var(--gold);font-weight:700;letter-spacing:.08em;font-size:12px}h1{font-size:25px;line-height:1.25;margin:7px 0 8px}p{margin:7px 0;color:var(--muted)}h2{font-size:18px;margin:0 0 12px}.panel{background:rgba(26,35,48,.96);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 8px 28px #0002}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field label{display:block;color:#d8e1ed;font-weight:650;margin:0 0 6px;font-size:13px}select,input{width:100%;background:#0f1722;color:var(--text);border:1px solid #45566d;border-radius:10px;padding:12px;font:inherit;min-height:46px}input[type=range]{padding:0;min-height:24px;accent-color:var(--gold)}.wide{grid-column:1/-1}.levelrow{display:flex;align-items:center;gap:12px}.levelnum{min-width:58px;text-align:center;color:var(--gold);font-size:22px;font-weight:800}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{background:#111a26;border:1px solid #2f4054;border-radius:12px;padding:11px}.stat small{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:21px;color:#fff}.stat em{font-size:11px;display:block;color:var(--muted);font-style:normal}.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.pill{border:1px solid #3c5068;border-radius:99px;padding:4px 9px;font-size:12px;color:#dbe8f8}.pill.ready{border-color:#367657;color:var(--green);background:#173428}.pill.wait{border-color:#65522b;color:#f5d78a;background:#302817}.skill{display:grid;grid-template-columns:65px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid #2d3b4d}.skill:last-child{border-bottom:0}.lv{font-weight:800;color:var(--gold)}.skill b{display:block}.skill p{font-size:13px;margin:2px 0 0}.muted{color:var(--muted)}.notice{border-left:3px solid var(--gold);padding:9px 12px;background:#2a261b;border-radius:0 8px 8px 0;color:#eadfbe;font-size:13px}.source a{color:var(--blue);overflow-wrap:anywhere}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.btn{background:#26384c;border:1px solid #536b87;color:#fff;border-radius:10px;padding:10px 13px;font-weight:700}.btn:active{transform:scale(.98)}.tiny{font-size:12px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:9px 8px;border-bottom:1px solid #344256;text-align:left;vertical-align:top}th{color:var(--gold)}@media(max-width:560px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:22px}.panel{padding:13px}}
+</style>
+</head>
+<body><main>
+<header class="hero"><div class="eyebrow">CHARACTER PLANNER / VERSION 1.0</div><h1>冒険者ギルド物語2<br>キャラ育成シミュレーター</h1><p>種族・現職・前職・個性・レベルを選び、能力値を手動調整しながら種族スキルと職業スキルの習得状態を試せるファン制作ツール。</p></header>
+<section class="panel"><h2>キャラクター設定</h2><div class="grid">
+<div class="field"><label for="race">種族</label><select id="race"><option value="人間（男）">人間（男）</option><option value="人間（女）">人間（女）</option><option value="ピグミーチャム">ピグミーチャム</option><option value="ノーム">ノーム</option><option value="ドワーフ">ドワーフ</option><option value="ダークエルフ">ダークエルフ</option><option value="吸血鬼">吸血鬼</option><option value="エルフ">エルフ</option><option value="サイキック">サイキック</option><option value="ワーキャット">ワーキャット</option><option value="ドラゴニュート">ドラゴニュート</option><option value="アマゾネス">アマゾネス</option><option value="魔造生物">魔造生物</option><option value="アンデッドマン">アンデッドマン</option><option value="巨人">巨人</option><option value="天狗">天狗</option><option value="鬼">鬼</option><option value="サイボーグ">サイボーグ</option></select></div>
+<div class="field"><label for="job">現職</label><select id="job"><option value="戦士">戦士</option><option value="剣士">剣士</option><option value="盗賊">盗賊</option><option value="僧侶">僧侶</option><option value="魔法使い">魔法使い</option><option value="狩人">狩人</option><option value="修道者">修道者</option><option value="侍">侍</option><option value="剣聖">剣聖</option><option value="秘法剣士">秘法剣士</option><option value="賢者">賢者</option><option value="忍者">忍者</option><option value="君主">君主</option><option value="ロイヤルライン">ロイヤルライン</option><option value="戦士マスター">戦士マスター</option><option value="剣士マスター">剣士マスター</option><option value="盗賊マスター">盗賊マスター</option><option value="僧侶マスター">僧侶マスター</option><option value="魔法使いマスター">魔法使いマスター</option><option value="狩人マスター">狩人マスター</option><option value="修道者マスター">修道者マスター</option><option value="侍マスター">侍マスター</option><option value="剣聖マスター">剣聖マスター</option><option value="秘法剣士マスター">秘法剣士マスター</option><option value="賢者マスター">賢者マスター</option><option value="忍者マスター">忍者マスター</option><option value="君主マスター">君主マスター</option><option value="ロイヤルラインマスター">ロイヤルラインマスター</option></select></div>
+<div class="field"><label for="prev">前職（パッシブ継承）</label><select id="prev"><option value="">なし（前職なし）</option><option value="戦士">戦士</option><option value="剣士">剣士</option><option value="盗賊">盗賊</option><option value="僧侶">僧侶</option><option value="魔法使い">魔法使い</option><option value="狩人">狩人</option><option value="修道者">修道者</option><option value="侍">侍</option><option value="剣聖">剣聖</option><option value="秘法剣士">秘法剣士</option><option value="賢者">賢者</option><option value="忍者">忍者</option><option value="君主">君主</option><option value="ロイヤルライン">ロイヤルライン</option><option value="戦士マスター">戦士マスター</option><option value="剣士マスター">剣士マスター</option><option value="盗賊マスター">盗賊マスター</option><option value="僧侶マスター">僧侶マスター</option><option value="魔法使いマスター">魔法使いマスター</option><option value="狩人マスター">狩人マスター</option><option value="修道者マスター">修道者マスター</option><option value="侍マスター">侍マスター</option><option value="剣聖マスター">剣聖マスター</option><option value="秘法剣士マスター">秘法剣士マスター</option><option value="賢者マスター">賢者マスター</option><option value="忍者マスター">忍者マスター</option><option value="君主マスター">君主マスター</option><option value="ロイヤルラインマスター">ロイヤルラインマスター</option></select></div>
+<div class="field"><label for="personality">個性</label><select id="personality"><option value="エリート">エリート</option><option value="天使に祝福されし者">天使に祝福されし者</option><option value="竜に育てられし者">竜に育てられし者</option><option value="捨て子">捨て子</option><option value="魔人の申し子">魔人の申し子</option><option value="古武術習得">古武術習得</option><option value="隠遁者の知識">隠遁者の知識</option><option value="使い魔所有">使い魔所有</option><option value="騎士の家系">騎士の家系</option><option value="傭兵経験">傭兵経験</option><option value="武家の出">武家の出</option><option value="鷹の目">鷹の目</option><option value="賢聖の家系">賢聖の家系</option><option value="魔法の知識">魔法の知識</option><option value="火炎の知識">火炎の知識</option><option value="冷気の知識">冷気の知識</option><option value="稲妻の知識">稲妻の知識</option><option value="失われた知識">失われた知識</option></select></div>
+<div class="field wide"><label for="level">キャラクターレベル（Lv1〜200）</label><div class="levelrow"><input id="level" type="range" min="1" max="200" value="30"><input id="levelNumber" type="number" min="1" max="200" value="30" style="max-width:90px"><div class="levelnum" id="levelNum">30</div></div></div>
+</div><div class="pills" id="summaryPills"></div></section>
+<section class="panel"><h2>現在のキャラクターまとめ</h2><div id="liveSummary" class="notice">選択内容を読み込み中</div><div id="liveStats" class="stats" style="margin-top:12px"></div><p class="tiny">装備の数値は単純加算で表示。倍率・才能・ゲーム内の複雑な計算式は未反映です。</p></section><section class="panel"><h2>基本能力値（種族の初期値）</h2><p class="tiny">力・知恵・精神・体力・敏捷・運。個性2、装備、レベル成長などの追加補正は含めていません。</p><div class="stats" id="baseStats"></div></section>
+<section class="panel"><h2>能力値の手動調整</h2><p class="tiny">種族の初期値を基準に、テスト用の能力値を直接設定できます。変更した値は参考計算にも反映されます。ゲーム内の成長・装備補正を自動再現するものではありません。</p><div class="grid" id="statEditors"></div><div class="toolbar" style="margin-top:10px"><button class="btn" id="resetStats">種族の初期値に戻す</button></div></section>
+<section class="panel"><h2>レベル別スキル習得状況</h2><p class="tiny">レベル条件による自動判定に加えて、テスト用に習得状態を手動で切り替えられます。種族や職業を切り替えると自動判定に戻ります。</p><div id="skills"></div></section>
+<section class="panel"><h2>職業スキル一覧（現職）</h2><p>通常職・マスター職の両方を選択できます。職業スキルは原則Lv15・30・70で有効化。マスター職の効果説明を収録していますが、一部は簡略表記です。</p><div id="jobSkills"></div></section>
+<section class="panel"><h2>前職スキルの扱い</h2><div id="inheritance"></div></section>
+<section class="panel"><h2>戦闘能力値の参考計算</h2><div class="notice">ここは暫定値です。ゲーム内の最終値を完全再現するものではありません。装備、個性補正、成長倍率、固有パッシブ、端数処理などの全条件は未反映です。</div><div class="stats" id="calcStats" style="margin-top:12px"></div></section>
+<section class="panel" id="customPanel"><h2>固有装備・カスタム効果（v1.0）</h2><p>NPC・魔造生物・超レア装備を自由に登録。装備枠を使わない固有装備にも対応。入力した効果は下のプレビューと登録済み装備一覧に表示されます。集計は単純加算のみで、ゲーム内の最終ステータス計算ではありません。</p><div class="toolbar"><button class="btn" type="button" id="loadSadu">サドゥの装備17点を読み込む</button><button class="btn" type="button" id="clearEquip">装備一覧を空にする</button></div><div class="grid" style="margin-top:12px"><div class="field wide"><label>装備・固有効果の名前</label><input id="equipName" placeholder="例：NPC固有の魔導具"></div><div class="field"><label>装備分類</label><select id="equipType"><option>固有装備（枠なし）</option><option>武器</option><option>防具</option><option>ワンド</option><option>魔道書</option><option>宝石</option><option>専用装備</option><option>その他</option></select></div><div class="field"><label>能力値</label><select id="equipStat"><option value="magic">魔法攻撃力</option><option value="hp">最大HP</option><option value="attack">攻撃力</option><option value="accuracy">命中精度</option><option value="defense">防御力</option><option value="mdef">魔法防御力</option><option value="heal">魔法回復量</option><option value="dispel">罠解除能力</option><option value="wisdom">知恵</option><option value="constitution">体力</option><option value="luck">運</option><option value="none">数値なし</option></select></div><div class="field"><label>加算値（マイナス可）</label><input id="equipValue" type="number" value="0"></div><div class="field"><label>魔法威力の増減（％）</label><input id="equipMagicPct" type="number" value="0"></div><div class="field wide"><label>スキル（1行につき1つ、自由記述）</label><textarea id="equipSkills" rows="4" style="width:100%;background:#0f1722;color:white;border:1px solid #45566d;border-radius:10px;padding:12px;font:inherit" placeholder="[才能] 魔法攻撃力&#10;[1.6倍] ニュークリア"></textarea></div></div><div id="equipPreview" class="notice" style="margin-top:10px" aria-live="polite">入力内容のプレビュー</div><div class="toolbar" style="margin-top:10px"><button class="btn" type="button" id="addEquip">装備・効果を一覧へ追加 ↓</button><button class="btn" type="button" id="exportEquip">JSONを書き出す</button><button class="btn" type="button" id="importEquip">JSONを読み込む</button></div><textarea id="equipJson" rows="3" style="width:100%;margin-top:10px;background:#0f1722;color:white;border:1px solid #45566d;border-radius:10px;padding:10px" placeholder="書き出し・読み込み用JSON"></textarea><p id="equipMessage" class="tiny"></p><h2 style="margin-top:15px">登録済み装備・効果</h2><div id="equipTotals" class="notice"></div><div id="equipEffects" class="stats" style="margin-top:12px"></div><p class="tiny">ここに表示するのは装備からの単純加算値です。戦闘能力値の最終計算とは異なります。</p><div id="equipList"></div><h2 style="margin-top:16px">追加されたスキル一覧</h2><div id="extraSkills"></div><h2 style="margin-top:16px">実測値との照合</h2><p>サドゥのゲーム内表示：Lv83、魔法攻撃力 4,308、最大HP 4,412、魔法威力 4.54倍。実測値は計算結果ではなく検証用の固定値です。</p></section>
+<section class="panel source"><h2>参照・注意点</h2><p>ゲーム内データの整理には攻略Wikiを参照しています。ゲームのアップデート等で内容が変わる可能性があります。</p><p><a href="https://wikiwiki.jp/guildmono2/種族・職業スキル" target="_blank" rel="noopener">種族・職業スキル一覧</a></p><p><a href="https://wikiwiki.jp/guildmono2/職業データ" target="_blank" rel="noopener">職業データ・転職仕様</a></p><p><a href="https://wikiwiki.jp/guildmono2/基本能力値一覧" target="_blank" rel="noopener">基本能力値一覧</a></p><p><a href="https://wikiwiki.jp/guildmono2/個性" target="_blank" rel="noopener">個性一覧</a></p><div class="toolbar"><button class="btn" id="reset">初期設定に戻す</button><button class="btn" id="copy">設定内容をコピー</button></div><p id="copyMsg" class="tiny"></p></section>
+<p class="tiny">選択肢が表示されても、計算結果が更新されない場合は、ファイルをSafariで開いてね。</p><p class="tiny">※非公式の補助ツールです。実際のゲームとは異なる場合があります。特に全職業のパッシブスキルの完全収録・個性補正・全戦闘能力値の完全計算は今後の拡張対象です。</p>
+</main>
+<script>
+const races={
+"人間（男）":{s:[7,7,8,7,7,7],skills:[["50","学習能力","獲得経験値が1.6倍"],["99","君臨","自分よりLvが低い相手からのダメージを30%軽減"],["150","ゾーン","ターン経過ごとに命中性能・回避能力が上昇"],["200","到達者","様々な特殊行動の発動率が上昇"]]},
+"人間（女）":{s:[6,6,7,8,8,8],skills:[["50","学習能力","獲得経験値が1.6倍"],["99","君臨","自分よりLvが低い相手からのダメージを30%軽減"],["150","ゾーン","ターン経過ごとに命中性能・回避能力が上昇"],["200","到達者","様々な特殊行動の発動率が上昇"]]},
+"ピグミーチャム":{s:[7,9,7,6,12,15],skills:[["50","隠れ身","ブレス回避成功率+30%、必殺攻撃の威力+30%"],["99","応援","ターン開始時に仲間1人の行動回数を1回増やす"]]},
+"ノーム":{s:[8,10,12,9,5,9],skills:[["50","集中詠唱(%)","魔法の威力が精神に応じて増大"],["99","祈り","ターン開始時に味方の呪文回数を回復することがある"]]},
+"ドワーフ":{s:[12,6,8,12,6,9],skills:[["50","反骨精神","攻撃を受けた時に反撃することがある"],["99","体当たり","敵の行動回数を下げることがある"]]},
+"ダークエルフ":{s:[9,12,5,8,10,7],skills:[["50","殺意","敵を倒した時に再攻撃することがある"],["99","群れ追う者","味方の魔法攻撃後に追撃することがある"]]},
+"吸血鬼":{s:[12,10,6,11,9,10],skills:[["50","魔法反撃","攻撃を受けた時に魔法で反撃することがある"],["99","覚醒","1ターンの間、敵に与えるダメージが2倍になることがある"]]},
+"エルフ":{s:[6,10,13,7,11,12],skills:[["50","反射回復","魔法攻撃を受けた時に全体回復が発動することがある"],["99","即時キュア","味方が状態異常になった時に即座にキュア"]]},
+"サイキック":{s:[5,15,10,6,7,8],skills:[["50","魔力分解","魔法攻撃を無効化することがある"],["99","必殺魔法","魔法攻撃でも必殺が発生する"]]},
+"ワーキャット":{s:[9,6,6,9,11,11],skills:[["50","弱者狙い","敵後列へ攻撃しやすく、必殺率上限+5%"],["99","先手必勝","1ターン目のみ命中精度2倍"]]},
+"ドラゴニュート":{s:[11,7,6,12,7,9],skills:[["50","ブレス反撃","攻撃を受けた時にブレスで反撃することがある"],["99","先制ブレス","ターン開始時に先制ブレスを行うことがある"]]},
+"アマゾネス":{s:[11,8,7,10,10,8],skills:[["50","勇猛果敢","魔法攻撃を受けた時に反撃することがある"],["99","激昂","ターン経過ごとに攻撃回数・行動速度が上昇"]]},
+"魔造生物":{s:[5,5,5,5,5,5],skills:[["50","精神感応","魔法回復量が1.3倍"],["99","完成体","Lvアップで上昇した全能力値が1.2倍、追加ダメージ1.3倍、装備可能数+1"]]},
+"アンデッドマン":{s:[8,8,8,16,8,8],skills:[["50","即時蘇生","戦闘中に蘇生することがある"],["99","デスマーチ","倒された直後にも蘇生判定。成功時HPは最大HPの5%"]]},
+"巨人":{s:[13,5,9,15,5,6],skills:[["50","かばう","HPが半分を切った仲間がいると狙われ率上昇"],["99","タフネス","ターン経過ごとに最大HPが上昇"]]},
+"天狗":{s:[8,11,8,7,13,7],skills:[["50","飛翔","回避能力1.3倍、攻撃時の反撃される確率が半分"],["99","疾風迅雷","1ターン目のみ行動回数+1"]]},
+"鬼":{s:[15,6,9,10,7,8],skills:[["50","闘争心","攻撃で敵を倒せなかった時に再攻撃することがある"],["99","怒り","ターン経過ごとに攻撃力・防御力が上昇"]]},
+"サイボーグ":{s:[8,7,6,7,15,10],skills:[["50","加速","攻撃が当たるたび追加ダメージと命中率が上昇"],["99","シフトアップ","10ターン目以降、行動回数+1"]]}
+};
+const jobs={
+"戦士":[["15","鉄壁","後列の仲間が受ける通常攻撃ダメージを軽減"],["30","不死身","防御力分、最大HPが増大"],["70","完全武装","盾・法衣の性能が上昇"]],
+"剣士":[["15","打ち合い","攻撃を受けた時に反撃することがある"],["30","魔法支援","味方の魔法攻撃後に追撃することがある"],["70","激闘","攻撃行動ごとに攻撃ダメージが増大"]],
+"盗賊":[["15","幸運","レアアイテムのドロップ率が1.2倍"],["30","2回行動","1ターンに2回行動"],["70","危機回避","即死ダメージ時にHP1で生き残ることがある"]],
+"僧侶":[["15","保護","後列メンバーの受ける魔法ダメージを軽減"],["30","祝福","パーティ全員の魔法威力が1.5倍"],["70","救出","仲間が倒れた時、回復魔法で復活させる"]],
+"魔法使い":[["15","魔力増幅(%)","攻撃魔法のダメージがLvに応じて上昇"],["30","魔力吸収","通常攻撃で使用済み魔法が再使用可能に"],["70","破壊魔法","ワンド性能上昇、魔法攻撃で敵の装甲を劣化"]],
+"狩人":[["15","追撃","味方の必殺攻撃後に追撃することがある"],["30","精神集中","魔法回復量の一部が命中精度に加算"],["70","見破り","弓性能上昇、パーティ全員の命中精度上昇"]],
+"修道者":[["15","不殺","攻撃力が半分になる"],["30","人徳","パーティ全員の取得経験値が1.3倍"],["70","修行","その他装備性能上昇、取得経験値1.7倍"]],
+"侍":[["15","一撃必殺","攻撃回数1回の時、攻撃力が2倍"],["30","不屈","HPが減るほど与ダメージ増大"],["70","剣豪","刀性能と必殺攻撃の威力が上昇"]],
+"剣聖":[["15","連続攻撃(%)","連続攻撃時のダメージ減少を抑える"],["30","心眼","条件を満たすと命中精度がさらに上昇"],["70","見切り","細剣性能上昇、一定確率で攻撃回避"]],
+"秘法剣士":[["15","ブースト","HPが最大に近い時、魔法と攻撃の威力が変動上昇"],["30","剣と魔法","攻撃と魔法を連続で行う"],["70","魔人","剣性能上昇、攻撃力の一部を最大HPに加算"]],
+"賢者":[["15","魔道書装備","魔道書の性能がLvに応じて上昇"],["30","連続詠唱(%)","一度に魔法を二回唱える"],["70","回復結界","魔道書性能上昇、パーティ全員のHP回復量増加"]],
+"忍者":[["15","隠密","迷宮の探索時間を短縮"],["30","達人","攻撃をかわした時に反撃することがある"],["70","必殺連撃","必殺攻撃の威力上昇、必殺後に再攻撃することがある"]],
+"君主":[["15","守護","後列の仲間が受けるブレスダメージを軽減"],["30","指揮","パーティ全体を支える職業スキル"],["70","統率","パーティ全体に影響する職業スキル"]],
+"ロイヤルライン":[["15","王の威光","パーティ支援系の職業スキル"],["30","王の資質","パーティ支援系の職業スキル"],["70","王の責務","被ダメージ時などにGPを消費することがある"]]
+};
+
+const masterDescriptions={
+"戦士マスター":[["15","鉄壁","自分より後列の仲間が受ける通常攻撃ダメージを1/2に減少（重複無効）"],["30","不死身","防御力と回避能力の数値分、最大HPが増大"],["70","完全武装","盾・法衣の性能が1.4倍"]],
+"剣士マスター":[["15","打ち合い","被攻撃時に力×1.2%で反撃。通常職より反撃性能が強化"],["30","魔法支援","味方の魔法攻撃後に追撃。通常職より発動率・攻撃力が強化"],["70","激闘","鎧性能1.4倍。攻撃行動ごとにダメージ6%増大"]],
+"盗賊マスター":[["15","幸運","レアアイテムのドロップ率が上昇"],["30","2回行動","1ターンに2回行動"],["70","危機回避","即死ダメージ時にHP1で生き残ることがある"]],
+"僧侶マスター":[["15","保護","後列の仲間が受ける魔法ダメージを通常職より大きく軽減"],["30","祝福","パーティ全員の魔法威力が1.6倍（重複無効）"],["70","救出","仲間が倒れた時、回復魔法で復活させる"]],
+"魔法使いマスター":[["15","魔力増幅(%)","攻撃魔法のダメージがレベルに応じて上昇"],["30","魔力吸収","通常攻撃で使用済み魔法が再使用可能になることがある"],["70","破壊魔法","ワンド性能上昇。魔法攻撃で敵の装甲を劣化"]],
+"狩人マスター":[["15","追撃","味方の必殺攻撃後に追撃することがある"],["30","精神集中","魔法回復量の一部が命中精度に加算"],["70","見破り","弓性能とパーティ全員の命中精度を強化"]],
+"修道者マスター":[["15","不殺","攻撃力が1になる"],["30","人徳","パーティ全員の取得経験値が1.4倍（重複無効）"],["70","修行","その他装備性能が2倍、パーティ全員の取得経験値が1.8倍（重複無効）"]],
+"侍マスター":[["15","一撃必殺","攻撃回数1回の時、攻撃力2.4倍。レベルごとの攻撃威力上昇あり"],["30","不屈","HPが減るほど与ダメージ増大（最大3倍）"],["70","剣豪","刀性能と必殺攻撃の威力が1.3倍"]],
+"剣聖マスター":[["15","連続攻撃(%)","連続攻撃によるダメージ減少を抑える"],["30","心眼","条件を満たすと命中精度がさらに上昇"],["70","見切り","細剣性能1.4倍。相手の命中精度に関係なく40%で攻撃回避"]],
+"秘法剣士マスター":[["15","ブースト","HPが最大値に近い時、攻撃・魔法ダメージが60〜240%に変動"],["30","剣と魔法","攻撃と魔法を連続で行い、行動順を決める速さが1.2倍"],["70","魔人","剣性能1.4倍。攻撃力の1/3を最大HPに加算"]],
+"賢者マスター":[["15","魔道書装備","魔道書性能がレベル×1.0%上昇"],["30","連続詠唱(%)","一度に魔法を二回唱え、魔法威力も20%増大"],["70","回復結界","魔道書性能上昇、パーティ全員のHP回復量増加"]],
+"忍者マスター":[["15","隠密","迷宮の探索時間を短縮"],["30","達人","攻撃をかわした時に反撃することがある"],["70","必殺連撃","必殺攻撃の威力上昇、必殺後に再攻撃することがある"]],
+"君主マスター":[["15","守護","後列の仲間が受けるブレスダメージを1/2に減少（重複無効）"],["30","指揮","パーティ全員の攻撃ダメージが1.5倍（重複無効）"],["70","貫通","重鎧性能1.4倍、追加ダメージ2.2倍"]],
+"ロイヤルラインマスター":[["15","王の威光","パーティ支援系の職業スキル（詳細は要検証）"],["30","王の資質","パーティ支援系の職業スキル（詳細は要検証）"],["70","搾取","ロイヤルライン固有の職業スキル（詳細は要検証）"]]
+};
+const baseJobNames=Object.keys(jobs);
+for (const [name, skills] of Object.entries(masterDescriptions)) jobs[name]=skills;
+
+const personalities=["エリート","天使に祝福されし者","竜に育てられし者","捨て子","魔人の申し子","古武術習得","隠遁者の知識","使い魔所有","騎士の家系","傭兵経験","武家の出","鷹の目","賢聖の家系","魔法の知識","火炎の知識","冷気の知識","稲妻の知識","失われた知識"];
+const names=["力","知恵","精神","体力","敏捷","運"];
+const $=id=>document.getElementById(id);
+window.ag2Render=()=>render();
+function fill(id,items,first){$(id).innerHTML=(first?`<option value="">${first}</option>`:"")+items.map(x=>`<option>${x}</option>`).join("")}
+// iOS互換性のため選択肢はHTMLに静的配置済み。再生成しない。
+const skillOverrides = {};
+const manualStats = {};
+let lastRace = "";
+function skillCard(level,name,desc,available,group="skill"){
+ const key = `${group}|${level}|${name}`;
+ const isOn = Object.prototype.hasOwnProperty.call(skillOverrides,key) ? skillOverrides[key] : available;
+ return `<div class="skill"><div class="lv">Lv${level}</div><div><b>${name}</b><p>${desc}</p><label style="display:flex;align-items:center;gap:8px;margin-top:7px;font-size:13px"><input type="checkbox" class="skill-toggle" data-skill-key="${key}" ${isOn?'checked':''} style="width:18px;min-height:18px;accent-color:var(--green)"> 習得済みにする</label><span class="pill ${isOn?'ready':'wait'}">${isOn?'習得済み':'未習得'}</span></div></div>`;
+}
+function render(){
+ const race=$("race").value,job=$("job").value,prev=$("prev").value,personality=$("personality").value,lv=Math.max(1,Math.min(200,+$("level").value||1));
+ $("levelNumber").value=lv;
+ $("levelNum").textContent=lv;
+ if(lastRace!==race){ for(const k of Object.keys(manualStats)) delete manualStats[k]; lastRace=race; }
+ const base = races[race].s;
+ const s = base.map((v,i)=>Object.prototype.hasOwnProperty.call(manualStats,i)?manualStats[i]:v);
+ $("statEditors").innerHTML = names.map((n,i)=>`<div class="field"><label for="stat${i}">${n}</label><input type="number" id="stat${i}" min="1" max="99999" value="${s[i]}"></div>`).join("");
+ $("summaryPills").innerHTML=[`種族：${race}`,`現職：${job}`,`前職：${prev||"なし"}`,`個性：${personality}`,`Lv.${lv}`].map(x=>`<span class="pill">${x}</span>`).join("");
+ $("baseStats").innerHTML=s.map((v,i)=>`<div class="stat"><small>${names[i]}</small><strong>${v}</strong><em>種族初期値</em></div>`).join("");
+ $("skills").innerHTML=races[race].skills.map(x=>skillCard(x[0],x[1],x[2],lv>=+x[0],"race")).join("");
+ $("jobSkills").innerHTML=jobs[job].map(x=>skillCard(x[0],x[1],x[2],lv>=+x[0],"job")).join("");
+ const hasPrev=prev&&prev!=="なし（前職なし）";
+ $("inheritance").innerHTML=hasPrev?`<div class="notice">前職「${prev}」のパッシブスキルは引き継ぎ対象ですが、前職のLv15・30・70の職業固有スキルは引き継ぎません。マスター職も同じルールです。</div><div class="skill"><div class="lv">前職</div><div><b>${prev}のパッシブスキル</b><p>この版ではパッシブ個別一覧の完全収録は未完了です。引き継ぎ対象の全パッシブを列挙していないため、ここでは職業名と仕様のみ表示しています。</p></div></div>`:`<p>前職が選択されていません。前職なしとして表示中です。転職後は前職のパッシブスキルを引き継ぎますが、職業固有スキルは引き継ぎません。</p>`;
+ // rough illustrative values only; formulas are partial and deliberately labeled
+ const levelFactor=lv<=30?lv*.1:lv<=60?lv*.15-1.5:lv<=80?lv*.225-6:lv<=100?lv*.45-24:lv<=150?lv*.1125+5.25:lv<=180?lv*.16875-3.1875:lv*.253125-18.375;
+ const coeff={戦士:[1.2,1,.75],剣士:[1,1.2,1],盗賊:[.75,.8,1],僧侶:[.65,.7,.25],魔法使い:[.6,.3,.5],狩人:[.9,1,.5],修道者:[.85,.8,.5],侍:[.9,2,.75],剣聖:[1,.9,1.4],秘法剣士:[1,1,.95],賢者:[.85,.8,.65],忍者:[.8,1,1.1],君主:[1.1,1,.75],ロイヤルライン:[.85,.8,.5]}[job]||[1,1,1];
+ const hp=Math.round(s[3]*(1+levelFactor*10*coeff[0])+11);const atk=Math.round(s[0]*(1+levelFactor*coeff[1]));const acc=Math.round(((s[0]+s[4])/2*(1+levelFactor*2*coeff[2]))+50);
+ $("calcStats").innerHTML=[["最大HP（参考）",Math.max(1,hp),"職業係数を使った概算"],["攻撃力（参考）",Math.max(1,atk),"基本能力値と成長式の概算"],["命中精度（参考）",Math.max(1,acc),"力・敏捷と成長式の概算"]].map(a=>`<div class="stat"><small>${a[0]}</small><strong>${a[1]}</strong><em>${a[2]}</em></div>`).join("");
+ if(window.ag2UpdateSummary)window.ag2UpdateSummary();
+}
+["race","job","prev","personality"].forEach(id=>$(id).addEventListener("change",()=>{for(const k of Object.keys(skillOverrides))delete skillOverrides[k];render();}));
+$("level").addEventListener("input",render);
+$("levelNumber").addEventListener("input",()=>{const n=Math.max(1,Math.min(200,+$("levelNumber").value||1));$("level").value=n;render();});
+$("statEditors").addEventListener("input",e=>{if(e.target&&e.target.id&&e.target.id.startsWith("stat")){const i=+e.target.id.slice(4);manualStats[i]=Math.max(1,+e.target.value||1);if(window.ag2UpdateSummary)window.ag2UpdateSummary();$("baseStats").innerHTML=names.map((n,j)=>`<div class="stat"><small>${n}</small><strong>${manualStats[j]??races[$("race").value].s[j]}</strong><em>手動設定値</em></div>`).join("");}});
+$("statEditors").addEventListener("change",e=>{if(e.target&&e.target.id&&e.target.id.startsWith("stat"))render();});
+$("skills").addEventListener("change",e=>{if(e.target&&e.target.classList.contains("skill-toggle")){skillOverrides[e.target.dataset.skillKey]=e.target.checked;render();}});
+$("jobSkills").addEventListener("change",e=>{if(e.target&&e.target.classList.contains("skill-toggle")){skillOverrides[e.target.dataset.skillKey]=e.target.checked;render();}});
+$("resetStats").addEventListener("click",()=>{for(const k of Object.keys(manualStats))delete manualStats[k];render();});
+$("reset").addEventListener("click",()=>{$("race").value="人間（男）";$("job").value="戦士";$("prev").value="";$("personality").value="エリート";$("level").value=30;$("levelNumber").value=30;for(const k of Object.keys(manualStats))delete manualStats[k];for(const k of Object.keys(skillOverrides))delete skillOverrides[k];render()});
+$("copy").addEventListener("click",()=>{const t=`冒険者ギルド物語2\n種族：${$("race").value}\n現職：${$("job").value}\n前職：${$("prev").value||"なし"}\n個性：${$("personality").value}\nLv：${$("level").value}`;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>$("copyMsg").textContent="設定をコピーしました").catch(()=>$("copyMsg").textContent=t)}else{$("copyMsg").textContent=t}});
+render();
+</script><script>
+(function(){
+'use strict';
+function initCustom(){
+try{
+var el=function(id){return document.getElementById(id)};
+var labels={magic:'魔法攻撃力',hp:'最大HP',attack:'攻撃力',accuracy:'命中精度',defense:'防御力',mdef:'魔法防御力',heal:'魔法回復量',dispel:'罠解除能力',wisdom:'知恵',constitution:'体力',luck:'運',none:'数値なし'};
+var sample=[
+['マジックソード改(魔魔)','武器','magic',80,9,'[+50] 魔法攻撃力アップ\n[武器] 近距離攻撃'],
+['魔性の竜殺しの弓(竜狙遠)','武器','accuracy',32,0,'[1.6倍] 竜族に特効\n[+40] 命中精度アップ\n[武器] 遠距離攻撃'],
+['カイザーアーマー(鎧)','防具','defense',30,0,'[-9%] 物理ダメージ軽減(%)'],
+['魔性のミスリルプレート(重防)','防具','defense',47,0,'[4/5] 攻撃に強い\n[+30] 防御力アップ'],
+['伝説のワンド(魔集)','ワンド','magic',214,10,'[戦術] トランス'],
+['伝説のミスリルワンド(魔集)','ワンド','magic',321,11,'[戦術] トランス'],
+['宿ったロイヤルワンド(魔集)','ワンド','magic',327,12,'[戦術] トランス'],
+['魔性のカイザーワンド(魔集)','ワンド','magic',307,13,'[戦術] トランス'],
+['伝説のウィザードワンド[トパーズ](魔)','ワンド','magic',855,0,'[才能] 魔法攻撃力'],
+['魔性のネクロマンサーの杖(魔)','ワンド','magic',583,8,''],
+['魔性のブーストワンド(魔魔魔)','ワンド','magic',61,18,'[+5%] 魔法威力の増減(%)\n[+6%] 魔法威力の増減(%)\n[+7%] 魔法威力の増減(%)'],
+['呪文書『禁断の力』(核核)','魔道書','magic',144,0,'[1.2倍] ニュークリア\n[習得] ニュークリア'],
+['忘却の書Lv5','魔道書','none',0,0,'[忘却] マジックアロー\n[忘却] スリープクラウド\n[忘却] ファイヤーボール\n[忘却] ブリザード\n[忘却] アタックアップ\n[忘却] ヒール\n[忘却] シールドバリア\n[忘却] キュア\n[忘却] ヒールプラス\n[忘却] マジックバリア'],
+['[宝石]ダイヤモンド(核魔)','宝石','mdef',260,23,'[耐性] ニュークリア'],
+['[宝石]トリフェーン(衣魔)','宝石','mdef',104,0,'[4/5] 魔法に強い\n[才能] 魔法攻撃力\n知恵 +1'],
+['魔女の帽子 ※サイキック専用(魔)','専用装備','magic',140,0,'[+100] 魔法攻撃力アップ\n知恵 +1'],
+['魔操身術 ※サイキック専用(王)','専用装備','hp',210,0,'[成長1.2倍] 才能と努力']
+];
+function fromSample(a){return {name:a[0],type:a[1],stat:a[2],value:a[3],pct:a[4],skills:a[5]}}
+var items=[];try{var stored=localStorage.getItem('ag2_custom_v11');if(stored){var parsed=JSON.parse(stored);if(Array.isArray(parsed))items=parsed}}catch(e){}
+function save(){try{localStorage.setItem('ag2_custom_v11',JSON.stringify(items))}catch(e){el('equipMessage').textContent='端末内保存が利用できません。JSON書き出しを使ってください。'}}
+function safe(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function draw(){var totals={},pct=0;items.forEach(function(x){if(x.stat!=='none')totals[x.stat]=(totals[x.stat]||0)+(Number(x.value)||0);pct+=Number(x.pct)||0});var summary=Object.keys(totals).map(function(k){return (labels[k]||k)+' '+(totals[k]>=0?'+':'')+totals[k]});summary.push('魔法威力増減（入力欄の単純合計） '+(pct>=0?'+':'')+pct+'%');el('equipTotals').textContent=items.length+'件登録｜'+summary.join(' / ');el('equipEffects').innerHTML=summary.map(function(t){return '<div class="stat"><strong>'+safe(t)+'</strong></div>'}).join('')||'<div class="stat">装備を追加すると能力値がここに表示されます</div>'; el('equipList').innerHTML=items.map(function(x,i){return '<div class="skill"><div class="lv">'+(i+1)+'</div><div><b>'+safe(x.name)+'</b><p>'+safe(x.type)+'｜'+safe(labels[x.stat]||x.stat)+' '+safe(x.value)+'｜魔法威力 '+safe(x.pct)+'%</p><p style="white-space:pre-wrap">'+safe(x.skills||'')+'</p><button class="btn" type="button" data-remove="'+i+'">削除</button></div></div>'}).join('')||'<p>まだ登録されていません。</p>';save();updateSummary()}
+
+function updateSummary(){
+ var race=el('race').value,job=el('job').value,lv=el('level').value;
+ var base= (typeof races!=='undefined' && races[race]) ? races[race].s : [0,0,0,0,0,0];
+ var statNames=['力','知恵','精神','体力','敏捷','運'];
+ var values=base.map(function(n,i){return typeof manualStats!=='undefined' && Object.prototype.hasOwnProperty.call(manualStats,i)?Number(manualStats[i]):n});
+ var totals={};var skills=[];var pct=0;
+ items.forEach(function(x){if(x.stat!=='none')totals[x.stat]=(totals[x.stat]||0)+(Number(x.value)||0);pct+=Number(x.pct)||0;(x.skills||'').split('\n').forEach(function(v){if(v.trim())skills.push(v.trim())})});
+ var keys=['magic','hp','attack','accuracy','defense','mdef','heal','dispel'];
+ el('liveSummary').textContent=race+' / '+job+' / Lv'+lv+' / 装備・固有効果 '+items.length+'件 / 追加スキル '+skills.length+'個';
+ var cards=statNames.map(function(n,i){var key=['strength','wisdom','spirit','constitution','agility','luck'][i];var bonus=totals[key]||0;return '<div class="stat"><small>'+n+'（基本＋装備）</small><strong>'+values[i]+(bonus?' + '+bonus:'')+'</strong></div>'});
+ keys.forEach(function(key){cards.push('<div class="stat"><small>'+labels[key]+'（装備加算）</small><strong>'+(totals[key]>=0?'+':'')+(totals[key]||0)+'</strong></div>')});
+ cards.push('<div class="stat"><small>魔法威力増減（装備加算）</small><strong>'+(pct>=0?'+':'')+pct+'%</strong></div>');
+ el('liveStats').innerHTML=cards.join('');
+ var dest=el('extraSkills');if(dest)dest.innerHTML=skills.length?skills.map(function(v){return '<div class="skill">'+safe(v)+'</div>'}).join(''):'<p>装備を登録すると追加スキルが表示されます。</p>';
+}
+window.ag2UpdateSummary=updateSummary;
+
+el('addEquip').addEventListener('click',function(){var name=el('equipName').value.trim();if(!name){el('equipMessage').textContent='装備名を入力してください';return}items.push({name:name,type:el('equipType').value,stat:el('equipStat').value,value:Number(el('equipValue').value)||0,pct:Number(el('equipMagicPct').value)||0,skills:el('equipSkills').value});el('equipMessage').textContent='「'+name+'」を追加しました。下の一覧と加算値に反映されています。';el('equipName').value='';el('equipSkills').value='';el('equipValue').value='0';el('equipMagicPct').value='0';draw();preview()});
+el('loadSadu').addEventListener('click',function(){items=sample.map(fromSample);el('race').value='サイキック';el('job').value='魔法使い';el('prev').value='修道者';el('level').value='83';el('levelNumber').value='83';el('race').dispatchEvent(new Event('change'));el('level').dispatchEvent(new Event('input'));el('equipMessage').textContent='17件読み込み。画像の見える範囲を転記した参考データです。装備の全能力値・括弧内数値は未収録です。';draw()});
+el('clearEquip').addEventListener('click',function(){if(confirm('登録済み装備をすべて消しますか？')){items=[];draw()}});
+el('equipList').addEventListener('click',function(e){var target=e.target.closest('[data-remove]');var n=target?target.getAttribute('data-remove'):null;if(n!=null){items.splice(Number(n),1);draw()}});
+el('exportEquip').addEventListener('click',function(){el('equipJson').value=JSON.stringify(items,null,2);el('equipMessage').textContent='JSONを表示しました。コピーして保存できます。'});
+el('importEquip').addEventListener('click',function(){try{var x=JSON.parse(el('equipJson').value);if(!Array.isArray(x)||x.length>500||!x.every(function(a){return a&&typeof a.name==='string'&&typeof a.stat==='string'}))throw Error();items=x.map(function(a){return {name:a.name,type:String(a.type||'固有装備'),stat:a.stat,value:Number(a.value)||0,pct:Number(a.pct)||0,skills:String(a.skills||'')}});draw();el('equipMessage').textContent='読み込み完了'}catch(e){el('equipMessage').textContent='JSONの形式を確認してください'}});
+function preview(){var key=el('equipStat').value;var n=el('equipName').value.trim()||'（名前未入力）';var v=Number(el('equipValue').value)||0;var pct=Number(el('equipMagicPct').value)||0;el('equipPreview').textContent='追加前プレビュー：'+n+' / '+(labels[key]||key)+' '+(v>=0?'+':'')+v+' / 魔法威力 '+(pct>=0?'+':'')+pct+'% / スキル '+(el('equipSkills').value.trim()||'なし');}
+['equipName','equipType','equipStat','equipValue','equipMagicPct','equipSkills'].forEach(function(id){el(id).addEventListener('input',preview);el(id).addEventListener('change',preview)});preview();draw();el('equipMessage').textContent='入力機能の準備完了。追加ボタンを押すと一覧に反映されます。';
+}catch(err){var m=document.getElementById('equipMessage');if(m)m.textContent='初期化エラー: '+String(err.message||err);}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initCustom);else initCustom();
+})();
+</script></body></html>
